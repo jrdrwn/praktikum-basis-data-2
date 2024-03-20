@@ -170,8 +170,8 @@ from pelanggan p
          join pegawai pgw on ht.id_pegawai = pgw.id_pegawai
 where t.id_transaksi = 'TRX1';
 
-select concat(substr(lower(p.nama_pelanggan), 1, 3), p.id_pelanggan, substr(lower(pgw.nama_pegawai), 1, 3),
-              replace(t.tanggal_pembelian, '-', ''),
+select concat(substr(lower(trim(p.nama_pelanggan)), 1, 3), p.id_pelanggan, substr(lower(trim(pgw.nama_pegawai)), 1, 3),
+              date_format(t.tanggal_pembelian, '%d%m%Y'),
               substr(rand(), 3, 5))
 from pelanggan p
          join transaksi t on t.id_pelanggan = p.id_pelanggan
@@ -185,8 +185,8 @@ create function getNewIdPembelianSparepart(id_transaksi_p varchar(50))
     deterministic
 begin
     declare new_id varchar(50);
-    select concat(substr(lower(p.nama_pelanggan), 1, 3), p.id_pelanggan, substr(lower(pgw.nama_pegawai), 1, 3),
-                  replace(t.tanggal_pembelian, '-', ''),
+    select concat(substr(lower(trim(p.nama_pelanggan)), 1, 3), p.id_pelanggan, substr(lower(trim(pgw.nama_pegawai)), 1, 3),
+                  date_format(t.tanggal_pembelian, '%d%m%Y'),
                   substr(rand(), 3, 5))
     into new_id
     from pelanggan p
@@ -211,7 +211,7 @@ from pelanggan p
          join pegawai pgw on ht.id_pegawai = pgw.id_pegawai
 where t.id_transaksi = 'TRX1';
 
-select concat(substr(lower(p.nama_pelanggan), 1, 3), t.id_transaksi, substr(lower(pgw.nama_pegawai), 1, 3),
+select concat(substr(lower(trim(p.nama_pelanggan)), 1, 3), t.id_transaksi, substr(lower(trim(pgw.nama_pegawai)), 1, 3),
               p.id_pelanggan,
               substr(rand(), 3, 5))
 from pelanggan p
@@ -226,7 +226,7 @@ create function getNewIdPembelianService(id_transaksi_p varchar(50))
     deterministic
 begin
     declare new_id varchar(50);
-    select concat(substr(lower(p.nama_pelanggan), 1, 3), t.id_transaksi, substr(lower(pgw.nama_pegawai), 1, 3),
+    select concat(substr(lower(trim(p.nama_pelanggan)), 1, 3), t.id_transaksi, substr(lower(trim(pgw.nama_pegawai)), 1, 3),
                   p.id_pelanggan,
                   substr(rand(), 3, 5))
     into new_id
