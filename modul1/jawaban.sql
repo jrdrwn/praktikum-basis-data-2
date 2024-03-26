@@ -65,7 +65,7 @@ insert into transaksi
 values (id, id_pelanggan, tgl_pembelian, total_biaya);
 create procedure InsertHeaderTransaksi(id varchar(50), id_transaksi varchar(50), id_pegawai varchar(50))
 insert into header_transaksi
-values (id, id_transaksi, id_pegawai);
+values (id, id_pegawai, id_transaksi);
 
 # no 3
 create procedure DeleteJabatan(id varchar(50))
