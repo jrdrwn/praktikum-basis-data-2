@@ -68,3 +68,11 @@ select * from daftar_pegawai;
 # select * from pembelian_sparepart pst join transaksi t on pst.id_transaksi = t.id_transaksi join pelanggan p on t.id_pelanggan = p.id_pelanggan join header_transaksi ht on t.id_transaksi = ht.id_transaksi join pegawai pgw on ht.id_pegawai = pgw.id_pegawai;
 #
 # select  * from header_transaksi;
+CREATE VIEW detail_transaksi AS
+SELECT pelanggan.nama_pelanggan, pegawai.nama_pegawai, SUM(pembelian_sparepart.jumlah_beli), COUNT(pembelian_service.id_service), transaksi.tanggal_pembelian
+FROM transaksi
+INNER JOIN pelanggan ON transaksi.id_pelanggan = pelanggan.id_pelanggan
+INNER JOIN pembelian_service ON transaksi.id_transaksi = pembelian_service.id_transaksi
+INNER JOIN pegawai ON pembelian_service.id_pegawai = pegawai.id_pegawai
+INNER JOIN pembelian_sparepart ON transaksi.id_transaksi = pembelian_sparepart.id_transaksi
+GROUP BY (pelanggan.id_pelanggan)
