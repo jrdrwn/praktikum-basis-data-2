@@ -127,12 +127,14 @@ create trigger UpdateJumlahStokAUPembelianSparepart
     on pembelian_sparepart
     for each row
 begin
-    if(OLD.id_sparepart != NEW.id_sparepart) then
-        update sparepart set stok = stok + OLD.jumlah_beli where id_sparepart = OLD.id_sparepart;
-        update sparepart set stok = stok - NEW.jumlah_beli where id_sparepart = NEW.id_sparepart;
-    else
-        update sparepart set stok = stok + OLD.jumlah_beli - NEW.jumlah_beli where id_sparepart = NEW.id_sparepart;
-    end if;
+#     if(OLD.id_sparepart != NEW.id_sparepart) then
+#         update sparepart set stok = stok + OLD.jumlah_beli where id_sparepart = OLD.id_sparepart;
+#         update sparepart set stok = stok - NEW.jumlah_beli where id_sparepart = NEW.id_sparepart;
+#     else
+#         update sparepart set stok = stok + OLD.jumlah_beli - NEW.jumlah_beli where id_sparepart = NEW.id_sparepart;
+#     end if;
+    update sparepart set stok = stok + old.jumlah_beli where  id_sparepart = old.id_sparepart;
+    update sparepart set stok = stok - new.jumlah_beli where  id_sparepart = new.id_sparepart;
 end;
 
 call UpdatePembelianSparepart('ISP8', 'TRX8', 'SPT1', 20);
