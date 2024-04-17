@@ -22,6 +22,29 @@ end $$
 delimiter ;
 
 delimiter $$
+
+create procedure InsertDataPegawaiNoNo(id_pegawai varchar(50),
+                                        id_jabatan varchar(50),
+                                   nama_pegawai varchar(50),
+                                   alamat varchar(100),
+                                   username varchar(50),
+                                   password varchar(50)
+                                   )
+begin
+    insert into pegawai
+    values (id_pegawai,
+            id_jabatan,
+            nama_pegawai,
+            alamat,
+            username,
+            password);
+end $$
+
+delimiter ;
+
+drop procedure InsertDataPegawaiNoNo;
+
+delimiter $$
 create procedure InsertDataTransaksi(id_transaksi varchar(50), id_pelanggan varchar(50), tanggal_pembelian date,
                                      total_biaya double, id_header varchar(50), id_pegawai varchar(50))
 begin
@@ -122,6 +145,18 @@ begin
         id_jabatan   = id_jabatan_p
     where id_pegawai = id_pegawai_p;
     update nomor_pegawai set no_tlp = no_telp_p where id_pegawai = id_pegawai_p;
+end;
+
+create procedure UpdatePegawaiNoNo(id_pegawai_p varchar(50), id_jabatan_p varchar(50), nama_p varchar(50), alamat_p varchar(50), username_p varchar(50),
+                                       password_p varchar(50))
+begin
+    update pegawai
+    set nama_pegawai = nama_p,
+        username     = username_p,
+        password     = password_p,
+        alamat       = alamat_p,
+        id_jabatan   = id_jabatan_p
+    where id_pegawai = id_pegawai_p;
 end;
 
 # no 5
